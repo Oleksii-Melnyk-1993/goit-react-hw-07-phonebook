@@ -1,29 +1,50 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, deleteContact } from './apiContacts';
 
 const initialState = {
-  contacts: [
-    { id: 'id-1', name: 'Oksana Ivanenko', number: '521-34-87' },
-    { id: 'id-2', name: 'Vasyl Kovalchuk', number: '765-98-12' },
-    { id: 'id-3', name: 'Nadia Hrytsenko', number: '332-56-71' },
-    { id: 'id-4', name: 'Taras Petrenko', number: '126-54-87' },
-    { id: 'id-5', name: 'Marina Shevchenko', number: '421-89-33' },
-  ],
+  items: [],
+  isLoading: false,
+  error: null,
+};
+const handlePending = state => {
+  state.isLoading = true;
+  state.error = null;
+};
+
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
 };
 
 export const sliceContacts = createSlice({
   name: 'contacts',
   initialState,
-  reducers: {
-    addContact: (state, action) => {
-      state.contacts = [...state.contacts, action.payload];
+  extraReducers: {
+    [fetchContacts.pending]: handlePending,
+    [fetchContacts.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.items = action.payload;
     },
-    deleteContact(state, action) {
-      state.contacts = state.contacts.filter(
-        contact => contact.id !== action.payload
+    [fetchContacts.rejected]: handleRejected,
+
+    [addContact.pending]: handlePending,
+    [addContact.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.items = [...state.items, action.payload];
+    },
+
+    [deleteContact.pending]: handlePending,
+    [deleteContact.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.items.findIndex(
+        contact => contact.id === action.payload.id
       );
+      state.items.splice(index, 1);
     },
+    [deleteContact.rejected]: handleRejected,
   },
 });
 
-export const { addContact, deleteContact } = sliceContacts.actions;
 export const contactsReducer = sliceContacts.reducer;
