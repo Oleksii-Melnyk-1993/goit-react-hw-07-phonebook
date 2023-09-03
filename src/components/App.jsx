@@ -17,7 +17,7 @@ import { Audio } from 'react-loader-spinner';
 export const App = () => {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const totalCount = useSelector(selectContactsCount);
 
   useEffect(() => {
