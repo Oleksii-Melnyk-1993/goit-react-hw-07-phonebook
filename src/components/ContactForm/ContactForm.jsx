@@ -2,7 +2,6 @@ import css from './ContactForm.module.css';
 import { FcPhoneAndroid } from 'react-icons/fc';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
-import { nanoid } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 import { addContact } from 'redux/apiContacts';
 import { useState } from 'react';
@@ -30,9 +29,6 @@ export const ContactForm = () => {
   //   name: '',
   //   number: '',
   // };
-  const generetedId = () => {
-    return nanoid(5);
-  };
 
   const formSubmitHandler = e => {
     e.preventDefault();
@@ -40,7 +36,7 @@ export const ContactForm = () => {
       toast.error(`${name} is already in list!`);
       return;
     }
-    dispatch(addContact({ id: generetedId(), name: name, number: number }));
+    dispatch(addContact({ name: name, number: number }));
     resetForm();
   };
 
