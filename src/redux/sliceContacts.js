@@ -33,6 +33,7 @@ export const sliceContacts = createSlice({
       state.error = null;
       state.items = [...state.items, action.payload];
     },
+    [addContact.rejected]: handleRejected,
 
     [deleteContact.pending]: handlePending,
     [deleteContact.fulfilled]: (state, action) => {
