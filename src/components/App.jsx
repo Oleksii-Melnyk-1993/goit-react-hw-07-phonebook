@@ -4,11 +4,11 @@ import css from './App.module.css';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-import { getContactsCount } from 'redux/selectors';
+import { selectContactsCount } from 'redux/selectors';
 import { Toaster } from 'react-hot-toast';
 
 export const App = () => {
-  const totalCount = useSelector(getContactsCount);
+  const totalCount = useSelector(selectContactsCount);
 
   return (
     <div
