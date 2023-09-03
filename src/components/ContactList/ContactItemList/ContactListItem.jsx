@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import css from './ContactListItem.module.css';
 import { FcPhone } from 'react-icons/fc';
-import { deleteContact } from 'redux/sliceContacts';
+import { deleteContact } from 'redux/apiContacts';
 import { useDispatch } from 'react-redux';
 
 export const ContactListItem = ({ contact }) => {

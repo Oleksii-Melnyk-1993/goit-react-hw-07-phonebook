@@ -1,7 +1,7 @@
 import css from './ContactForm.module.css';
 import { FcPhoneAndroid } from 'react-icons/fc';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 import { nanoid } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 import { addContact } from 'redux/sliceContacts';
@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const handleChange = e => {
